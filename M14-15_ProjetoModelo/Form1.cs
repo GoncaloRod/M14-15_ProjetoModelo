@@ -16,5 +16,16 @@ namespace M14_15_ProjetoModelo
         {
             InitializeComponent();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void livrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frLivros frm = new frLivros();
+            frm.Show();
+        }
     }
 }
