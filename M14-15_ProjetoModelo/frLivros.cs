@@ -105,5 +105,18 @@ namespace M14_15_ProjetoModelo
         {
             dataGridView1.DataSource = DB.Instance.ExecQuery("SELECT * FROM Livros");
         }
+
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Book Id
+            if (dataGridView1.CurrentCell == null) return;
+
+            int line = dataGridView1.CurrentCell.RowIndex;
+            int bookId = int.Parse(dataGridView1.Rows[line].Cells[0].Value.ToString());
+
+            // Open Edir Form
+            frEditBook frm = new frEditBook(bookId);
+            frm.Show();
+        }
     }
 }
