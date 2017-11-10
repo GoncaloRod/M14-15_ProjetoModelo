@@ -19,7 +19,7 @@ namespace M14_15_ProjetoModelo
             InitializeComponent();
             
             // Update table
-            updateTable();
+            UpdateTable();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace M14_15_ProjetoModelo
             DB.Instance.ExecSQL(sql, parameters);
 
             // Update table
-            updateTable();
+            UpdateTable();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,7 +70,38 @@ namespace M14_15_ProjetoModelo
             pictureBox1.Image = Image.FromFile(lbCapa.Text);
         }
 
-        public void updateTable()
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Selected Line
+            if (dataGridView1.CurrentCell == null) return;
+
+            int line = dataGridView1.CurrentCell.RowIndex;
+
+            if (line < 0)
+            {
+                MessageBox.Show("Selecione um livro!");
+                return;
+            }
+
+            // Book Id
+            int bookId = int.Parse(dataGridView1.Rows[line].Cells[0].Value.ToString());
+
+            // Confirm Action
+            if (MessageBox.Show($"Tem a certeza que pertende apagar o livro Nº {bookId}?", "", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+
+            // Remove Book Cover
+            string cover = dataGridView1.Rows[line].Cells[5].Value.ToString();
+            if (File.Exists(cover)) File.Delete(cover);     // TODO: Try Catch
+
+            // Run Sql
+            string sql = $"DELETE FROM Livros WHERE nlivro = {bookId}";
+            DB.Instance.ExecSQL(sql);
+
+            // Update Table
+            UpdateTable();
+        }
+
+        public void UpdateTable()
         {
             dataGridView1.DataSource = DB.Instance.ExecQuery("SELECT * FROM Livros");
         }
