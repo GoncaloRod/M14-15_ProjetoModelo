@@ -19,8 +19,6 @@ namespace M14_15_ProjetoModelo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DB db = new DB();
-
             // Validate form inputs
             string name = textBox2.Text;
             int year = int.Parse(textBox3.Text);
@@ -32,7 +30,7 @@ namespace M14_15_ProjetoModelo
 
             // INSERT INTO
             string sql = $"INSERT INTO Livros(nome, ano, data_aquisicao, preco) VALUES('{name}', {year}, '{date}', {price})";
-            db.ExecSQL(sql);
+            DB.Instance.ExecSQL(sql);
         }
     }
 }

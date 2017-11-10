@@ -10,6 +10,13 @@ namespace M14_15_ProjetoModelo
 {
     class DB
     {
+        private static DB instance;
+
+        public static DB Instance()
+        {
+
+        }
+
         string strConnect;
         SqlConnection dbConnection;
 
