@@ -17,6 +17,9 @@ namespace M14_15_ProjetoModelo
         public frLivros()
         {
             InitializeComponent();
+            
+            // Update table
+            updateTable();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -53,6 +56,9 @@ namespace M14_15_ProjetoModelo
 
             // Exectute SQL Command
             DB.Instance.ExecSQL(sql, parameters);
+
+            // Update table
+            updateTable();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,6 +68,11 @@ namespace M14_15_ProjetoModelo
             if (result != DialogResult.OK) return;
             lbCapa.Text = fileDialog.FileName;
             pictureBox1.Image = Image.FromFile(lbCapa.Text);
+        }
+
+        public void updateTable()
+        {
+            dataGridView1.DataSource = DB.Instance.ExecQuery("SELECT * FROM Livros");
         }
     }
 }

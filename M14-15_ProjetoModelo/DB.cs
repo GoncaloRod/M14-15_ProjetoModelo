@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,18 @@ namespace M14_15_ProjetoModelo
             command.ExecuteNonQuery();
             command.Dispose();
             command = null;
+        }
+
+        public DataTable ExecQuery(string query)
+        {
+            SqlCommand command = new SqlCommand(query, dbConnection);
+            DataTable registry = new DataTable();
+            SqlDataReader data =  command.ExecuteReader();
+            registry.Load(data);
+            data = null;
+            command.Dispose();
+            return registry;
+
         }
     }
 }
