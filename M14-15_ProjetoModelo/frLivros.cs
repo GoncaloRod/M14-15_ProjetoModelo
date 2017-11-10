@@ -119,5 +119,11 @@ namespace M14_15_ProjetoModelo
             frm.ShowDialog();
             UpdateTable();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string sql = $"SELECT * FROM Livros WHERE nome LIKE '{textBox1.Text}'";
+            dataGridView1.DataSource = DB.Instance.ExecQuery(sql);
+        }
     }
 }
