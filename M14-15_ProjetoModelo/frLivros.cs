@@ -116,7 +116,8 @@ namespace M14_15_ProjetoModelo
 
             // Open Edir Form
             frEditBook frm = new frEditBook(bookId);
-            frm.Show();
+            frm.ShowDialog();
+            UpdateTable();
         }
     }
 }
