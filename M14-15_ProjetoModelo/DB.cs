@@ -12,9 +12,14 @@ namespace M14_15_ProjetoModelo
     {
         private static DB instance;
 
-        public static DB Instance()
+        public static DB Instance
         {
+            get
+            {
+                if (instance == null) instance = new DB();
 
+                return instance;
+            }
         }
 
         string strConnect;
@@ -38,10 +43,19 @@ namespace M14_15_ProjetoModelo
                 Console.Write(e.Message); 
             }
         }
-
+        
         public void ExecSQL(string sql)
         {
             SqlCommand command = new SqlCommand(sql, dbConnection);
+            command.ExecuteNonQuery();
+            command.Dispose();
+            command = null;
+        }
+
+        public void ExecSQL(string sql, List<SqlParameter> parameters)
+        {
+            SqlCommand command = new SqlCommand(sql, dbConnection);
+            command.Parameters.AddRange(parameters.ToArray());
             command.ExecuteNonQuery();
             command.Dispose();
             command = null;

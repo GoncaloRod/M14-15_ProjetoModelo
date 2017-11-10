@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace M14_15_ProjetoModelo
 {
@@ -29,8 +30,18 @@ namespace M14_15_ProjetoModelo
 
 
             // INSERT INTO
-            string sql = $"INSERT INTO Livros(nome, ano, data_aquisicao, preco) VALUES('{name}', {year}, '{date}', {price})";
-            DB.Instance.ExecSQL(sql);
+            string sql = "INSERT INTO Livros(nome, ano, data_aquisicao, preco) VALUES(@nome, @ano, @data_aquisicao, @preco)";
+
+            // Parameters
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter(){ ParameterName = "@nome", SqlDbType = SqlDbType.VarChar, Value = name },
+                new SqlParameter(){ ParameterName = "@ano", SqlDbType = SqlDbType.Int, Value = year },
+                new SqlParameter(){ ParameterName = "@data_aquisicao", SqlDbType = SqlDbType.Date, Value = date },
+                new SqlParameter(){ ParameterName = "@preco", SqlDbType = SqlDbType.Decimal, Value = price }
+            };
+
+            DB.Instance.ExecSQL(sql, parameters);
         }
     }
 }
